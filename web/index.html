@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>AI 智能客服</title>
+<!-- data URI 必须做百分号编码：裸写 <svg> 会被宽松的 HTML 解析器截断，页面顶部会漏出一个 "> -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Ctext%20y='26'%20font-size='26'%3E%F0%9F%92%AC%3C/text%3E%3C/svg%3E" />
+<link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+<div class="app" id="app">
+
+  <!-- ── 侧栏：会话列表 ── -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-head">
+      <div class="brand">
+        <span class="brand-mark">💬</span>
+        <span class="brand-name">AI 智能客服</span>
+      </div>
+      <button class="btn primary block" id="newChatBtn">＋ 新对话</button>
+    </div>
+    <div class="session-list" id="sessionList"></div>
+    <div class="sidebar-foot">
+      <div class="foot-status" id="status" title="">正在连接…</div>
+    </div>
+  </aside>
+
+  <!-- ── 主区 ── -->
+  <main class="main">
+    <header class="topbar">
+      <button class="icon-btn only-mobile" id="menuBtn" title="会话列表">☰</button>
+      <div class="title-wrap">
+        <h1 class="chat-title" id="chatTitle">新对话</h1>
+        <div class="subtitle" id="chatSubtitle">本地模型 · 私有部署</div>
+      </div>
+      <div class="topbar-right">
+        <button class="btn human-service" id="humanServiceBtn" title="转接人工客服">🎧 人工服务</button>
+        <select class="select" id="modelSelect" title="选择模型"></select>
+        <label class="switch" title="深度思考会显著变慢">
+          <input type="checkbox" id="thinkToggle" />
+          <span>深度思考</span>
+        </label>
+        <button class="btn" id="promptBtn" title="自定义系统提示词">
+          提示词<span class="dot" id="promptDot" hidden></span>
+        </button>
+      </div>
+    </header>
+
+    <div class="banner" id="banner" hidden>
+      <span id="bannerText"></span>
+      <button class="btn tiny" id="bannerRetry" hidden>重试</button>
+      <button class="banner-close" id="bannerClose" title="关闭">✕</button>
+    </div>
+
+    <div class="messages" id="messages"></div>
+
+    <div class="composer">
+      <div class="composer-box">
+        <textarea id="input" rows="1" placeholder="输入消息，Enter 发送，Shift+Enter 换行"></textarea>
+        <button class="icon-btn send" id="sendBtn" title="发送">➤</button>
+        <button class="icon-btn stop" id="stopBtn" title="停止生成" hidden>■</button>
+      </div>
+      <div class="hint" id="hint">模型运行在本地，回复速度受机器性能影响</div>
+    </div>
+  </main>
+
+  <div class="scrim" id="scrim" hidden></div>
+</div>
+
+<!-- ── 系统提示词弹窗 ── -->
+<div class="modal" id="promptModal" hidden>
+  <div class="modal-card">
+    <div class="modal-head">
+      <h2>系统提示词</h2>
+      <button class="icon-btn" id="promptClose" title="关闭">✕</button>
+    </div>
+    <p class="modal-desc">
+      仅对当前会话生效，留空则使用服务端默认提示词。
+    </p>
+    <div class="presets" id="presets"></div>
+    <textarea id="promptInput" rows="10" placeholder="例如：你是一名技术支持工程师，回答要给出具体操作步骤…"></textarea>
+    <details class="default-prompt">
+      <summary>查看服务端默认提示词</summary>
+      <pre id="defaultPromptText">加载中…</pre>
+    </details>
+    <div class="modal-foot">
+      <button class="btn" id="promptReset">恢复默认</button>
+      <div class="spacer"></div>
+      <button class="btn" id="promptCancel">取消</button>
+      <button class="btn primary" id="promptSave">保存（Ctrl+Enter）</button>
+    </div>
+  </div>
+</div>
+
+<script src="./app.js"></script>
+</body>
+</html>

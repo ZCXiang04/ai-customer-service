@@ -1,0 +1,24 @@
+{
+  "name": "ai-kefu",
+  "version": "2.0.0",
+  "private": true,
+  "description": "私有化部署的 Web 版 AI 智能客服：Node BFF + Ollama + SQLite，支持连续对话、会话级提示词、天气工具与原生工具调用（订单查询）",
+  "type": "module",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node --watch server/index.js",
+    "test": "node server/smoke-test.js",
+    "test:weather": "node server/weather-mock-test.js",
+    "test:order": "node server/order-test.js",
+    "test:md": "node server/md-render-test.js",
+    "inspect": "node server/inspect-context.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.3.0",
+    "express": "^4.19.2"
+  }
+}

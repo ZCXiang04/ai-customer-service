@@ -1,0 +1,11 @@
+# 统一行尾，避免 Windows CRLF 与 Linux LF 混用导致的 diff 噪音
+* text=auto eol=lf
+
+# 二进制文件不做行尾转换
+*.png binary
+*.jpg binary
+*.ico binary
+*.xlsx binary
+*.xls binary
+*.db binary
+快递信息.csv binary
